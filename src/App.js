@@ -1,14 +1,13 @@
-import React from 'react';
-import './App.css';
+import React, { Fragment } from 'react';
 import TaskList from './components/TaskList';
 import TaskBar from './components/TaskBar'; 
 
 function App() {
   return (
-    <div className="App">
+    <Fragment>
       <TaskList />
       <TaskBar/>
-    </div>
+    </Fragment>
   );
 }
 

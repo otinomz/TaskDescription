@@ -1,0 +1,46 @@
+/* tasks */
+
+.taskResults {
+    width: 30%;
+    margin: auto;
+    min-height: 5vh;
+    border: 1px solid gainsboro;
+    display: flex;
+    margin-top: 30px;
+}
+
+.tasksSection {
+    display: grid;
+    grid-template-columns: 60px 1fr 50px;
+    grid-template-rows: 70px;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    width: 100%;
+    padding: 10px;
+}
+
+.taskDetail>p:nth-child(1) {
+    margin: 0;
+}
+
+.img {
+    padding: 3px;
+    cursor: pointer;
+    margin-left: 2px;
+    background: gray;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.edit,
+.trash {
+    padding: 3px;
+    cursor: pointer;
+    margin-left: 2px;
+}
+
+@media screen and (max-width:1100px) {
+    .taskResults {
+        width: 50%;
+    }
+}

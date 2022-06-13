@@ -1,35 +1,9 @@
-.taskContainer {
-  width: 50%;
-  margin: auto;
-  min-height: 60vh;
-  background: rgb(0, 238, 255);
-  border: 1px solid grey;
-}
-
-.taskContainer>div:nth-child(1) {
-    display: grid;
-    grid-template-columns: 1fr 50px;
-    grid-template-rows: 100px;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    background: #fff;
-    border-bottom: 1px solid grey;
-    }
-    
-
-.taskContainer>div:nth-child(1) {
-  display: flex;
-  justify-content: space-between;
-}
-
-.taskContainer>div:nth-child(1)> .tasks {
-  display: flex;
-  justify-content: space-between;
-  width: 10%;
-}
-
-.taskContainer>div:nth-child(1)> .plus {
-  width: 30px;
-  text-align: center;
-  border-left: 1px solid grey;
-}
+.tasksSection {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 100px;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  }
+  
+  
