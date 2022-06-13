@@ -40,7 +40,10 @@ const TaskBar = () => {
             </div>
             <div className="assignUser">
                 <p>Assign User</p>
-                <input type="number" />
+                <select name="" id="" className='select'>
+                    <option value="user">user</option>
+                    <option value="user">user</option>
+                </select>
             </div>
             <div className="taskBtn">
                 <button className="cancelBtn">

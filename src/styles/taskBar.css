@@ -6,6 +6,8 @@
     border: 1px solid gainsboro;
     display: flex;
     flex-direction: column;
+    border-radius: 5px;
+
 }
 
 @media screen and (max-width:1100px) {
@@ -101,6 +103,7 @@
     border: none;
     width: 75%;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .assignUser {
@@ -114,6 +117,7 @@
     width: 94%;
     padding: 14px;
     font-size: 14px;
+    border-radius: 5px;
 }
 
 .taskBtn {
