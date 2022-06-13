@@ -5,7 +5,7 @@ import { faAddressCard, faCalendarAlt, faClock } from '@fortawesome/free-solid-s
 
 const TaskBar = () => {
     return (
-        <form className="taskContainer">
+        <form className="taskContainer" >
             <div>
                 <div className='tasks'>
                     <p>Tasks</p>
