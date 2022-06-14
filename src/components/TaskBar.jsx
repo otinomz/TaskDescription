@@ -54,7 +54,7 @@ const TaskBar = () => {
                     <p>Tasks  0</p>
                 </div>
                 <div className="plus" onClick={handleAdd}>
-                    <p>+</p>
+                    <p>{ !open ? "+": "-"}</p>
                 </div>
             </div>
             
