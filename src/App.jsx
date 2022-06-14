@@ -6,9 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 function App() {
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
-  );
+  const { user, isLoading, isError, isSuccess, message } = useSelector((state) => state.auth);
+  
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -25,6 +24,8 @@ function App() {
     dispatch(login())
   }
 
+
+
   return (
     <>
       {user ? (
@@ -33,7 +34,7 @@ function App() {
           <TaskBar />
         </>
       ) : (
-        <button disabled={user} onClick={handleClick}>
+        <button disabled={ user } onClick={handleClick}>
           login
         </button>
       )}

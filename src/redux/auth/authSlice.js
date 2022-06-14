@@ -24,8 +24,14 @@ const userData = {
 // Login user
 export const login = createAsyncThunk('auth/login', async (_, thunkAPI) => {
   try {
-    return await authService.login(userData)
+    
+    const { data } =  await authService.login(userData)
+
+    return data
+    
+  
   } catch (error) {
+
     const message =
       (error.response && error.response.data && error.response.data.message) ||
       error.message ||
@@ -34,6 +40,8 @@ export const login = createAsyncThunk('auth/login', async (_, thunkAPI) => {
   }
 })
 
+
+// export const getUsers = 
 
 export const authSlice = createSlice({
   name: "auth",
@@ -51,11 +59,13 @@ export const authSlice = createSlice({
       .addCase(login.pending, (state) => {
         state.isLoading = true
       })
+
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
         state.user = action.payload
       })
+
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
@@ -68,4 +78,5 @@ export const authSlice = createSlice({
 export const {
   reset
 } = authSlice.actions
+
 export default authSlice.reducer

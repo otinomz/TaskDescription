@@ -1,4 +1,22 @@
-.taskContainer {
+.addTask {
+    width: 30%;
+    margin: 30px auto 0;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid gainsboro;
+}
+
+.addTask > .tasks {
+    padding-left: 20px;
+}
+
+.plus {
+    width: 10%;
+    text-align: center;
+    border-left: 1px solid gainsboro;
+}
+
+.taskContainer.open{
     width: 30%;
     margin: 30px auto;
     min-height: 60vh;
@@ -7,42 +25,10 @@
     display: flex;
     flex-direction: column;
     border-radius: 5px;
-
 }
 
-@media screen and (max-width:1100px) {
-    .taskContainer {
-        width: 50%;
-    }
-}
-
-.taskContainer>div:nth-child(1) {
-    display: grid;
-    grid-template-columns: 1fr 50px;
-    grid-template-rows: 100px;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    background: #fff;
-    border-bottom: 1px solid gainsboro;
-    padding-left: 20px;
-}
-
-
-.taskContainer>div:nth-child(1) {
-    display: flex;
-    justify-content: space-between;
-}
-
-.taskContainer>div:nth-child(1)>.tasks {
-    display: flex;
-    justify-content: space-between;
-    width: 10%;
-}
-
-.taskContainer>div:nth-child(1)>.plus {
-    width: 10%;
-    text-align: center;
-    border-left: 1px solid gainsboro;
+.taskContainer.close{
+    display: none;
 }
 
 .taskDescription {
@@ -58,7 +44,7 @@
     cursor: pointer;
 }
 
-.taskDescription>div {
+.taskDescription > div {
     display: flex;
     width: 100%;
     background: #fff;
@@ -68,7 +54,7 @@
     overflow: hidden;
 }
 
-.taskDescription>div>input {
+.taskDescription > div > input {
     border: none;
     outline: none;
     width: 90%;
@@ -98,8 +84,8 @@
     justify-content: space-between;
 }
 
-.time>input,
-.date>input {
+.time > input,
+.date > input {
     border: none;
     width: 75%;
     cursor: pointer;
@@ -111,7 +97,7 @@
     margin: 0 auto;
 }
 
-.assignUser>input {
+.assignUser > input {
     border: none;
     outline: none;
     width: 94%;
