@@ -2,49 +2,86 @@ import React, { useState } from 'react';
 import "../styles/taskBar.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAddressCard, faCalendarAlt, faClock } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTask } from '../redux/task/taskSlice';
+import { getUser } from '../redux/getUsers/assignedUserSlice';
+import { createTask } from '../redux/task/taskService';
 
-
-// {
-//                 assigned_user:  <id value from /team api response >, 
-//                 task_date: <date in 'YYYY-MM-DD' format from date field in task>,
-//                 task_time: <time from time field in task>,seconds in integer format(for ex=01:30am means 5400 seconds) ,
-//                 is_completed:<0 or 1 integer data type>,
-// 		        time_zone:  < Currenttimezone value in seconds and data type is integer>,(for ex= +05:30 means 19800 seconds),
-//                 task_msg: <task description from task description field in task>
-//                }
 
 const TaskBar = () => {
-    
+    const { assigneduser } = useSelector((state) => state.assignedUser)
+    const { user } = useSelector((state) => state.auth)
+
+    const dispatch = useDispatch()
+    // this is to open and close the form
+    const [open, setOpen] = useState(false)
+
     const [value, setValue] = useState({
-        assigned_user: "",
+        assigned_user: "user_4ee4cf67ad474a27988bc0afb84cf472",
         task_date: "",
         task_time: "",
-        is_completed: "0",
+        is_completed: "1",
         time_zone: "",
         task_msg: ""
     })
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
 
-        console.log(value)
-    
+            
+    // this it to get the current timezone to seconds
+    // javascript method to get the current timezone 
+    const myTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    // javascript method to get the current date and time equivalence in timezones
+    const times = new Date().toLocaleDateString("en-Us", {timeZone: `${myTimeZone}`, timestyle: 'long', hourCycle: 'h24'})
+    const date = new Date(times)
+    const timezoneSeconds = date.getTime() / 1000 
+
+
+    const handleSubmit = async () => {
+        console.log(value)    
+        try {
+            const company_id = user.results.company_id
+            const token = user.results.token
+            const time = value.task_time                 
+
+            const dataValues = {
+                ...value,
+                task_time: Number(time.split(':').reverse().reduce((prev, curr, i) => prev + curr*Math.pow(60, i), 0)),
+                task_zone: Number(timezoneSeconds),
+                is_completed: Number(value.is_completed)
+            }
+
+            const resp = await createTask(company_id, token, dataValues)
+            console.log(" adding first task resp is", {resp})
+
+            
+            // dispatch(addTask(value))
+            // localStorage.setItem('task', JSON.stringify(value));
+            // setOpen(false)    
+        } catch (error) {
+            alert(error.message)            
+        }
+        
     }
     
 
-     const handleChange = (e) => {
+    const handleChange = (e) => {
         setValue({
             ...value,
             [e.target.name]: e.target.value
         });
     }
 
-    const [open, setOpen] = useState(false)
-    
     const handleAdd = () => {
         setOpen(prev => !prev)
-        console.log(open)
     }
+
+    
+
+    React.useEffect(() => {
+        dispatch(getUser())
+    }, [])
+    
+
 
 
     return (
@@ -58,12 +95,13 @@ const TaskBar = () => {
                 </div>
             </div>
             
-            <form className={`taskContainer ${ open  ? "open" : "close"}`} onSubmit={handleSubmit} >
+            <form className={`taskContainer ${ open  ? "open" : "close"}`} onSubmit={(e)=> e.preventDefault()} >
                       
                 <div className='taskDescription'>
                     <p>Task Description</p>
                     <div>
-                        <input 
+                        <input
+                            required  
                             onChange={handleChange}    
                             name="task_msg"
                             type="text"
@@ -79,6 +117,7 @@ const TaskBar = () => {
                         <div className='date' >
                             <div className="icon"><FontAwesomeIcon icon={faCalendarAlt} color="gray" /></div>
                             <input
+                                required
                                 onChange={handleChange}    
                                 name="task_date"
                                 type="date"
@@ -92,6 +131,7 @@ const TaskBar = () => {
                         <div className='time'>
                             <div className="icon"><FontAwesomeIcon icon={faClock} color="gray" /></div>
                             <input
+                                required
                                 onChange={handleChange}    
                                 name="task_time"
                                 type="time"
@@ -103,17 +143,27 @@ const TaskBar = () => {
                 
                 <div className="assignUser">
                     <p>Assign User</p>
-                    <select name="" id="" className='select'>
-                        <option value="user">user</option>
-                        <option value="user">user</option>
+                    <select
+                        id=""
+                        className='select'
+                        required    
+                        name="assigned_user"
+                        value={value.assigned_user}
+                        onChange={handleChange}
+                    >
+                        {
+                            assigneduser.results.data.map((set, index) => (
+                                <option key={index}>{ set.name }</option>
+                            ))
+                        }
                     </select>
                 </div>
 
                 <div className="taskBtn">
-                    <button className="cancelBtn">
+                    <button className="cancelBtn" onClick={()=> setOpen(false)}>
                         Cancel
                     </button>
-                    <button className="saveBtn">
+                    <button className="saveBtn" onClick={handleSubmit}>
                         Save
                     </button>
                 </div>

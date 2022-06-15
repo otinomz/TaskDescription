@@ -6,21 +6,25 @@ import assignedUserService from './userService';
 
 // Get user from localStorage
 
+const assigneduser = JSON.parse(localStorage.getItem('assigneduser'))
+
 const initialState = {
-  assignedUser: "",
+  assigneduser: assigneduser ? assigneduser : null,
   isError: false,
   isSuccess: false,
   isLoading: false,
   message: '',
 }
 
+const user = JSON.parse(localStorage.getItem('user'))
 
 // get Assigned user
 export const getUser = createAsyncThunk('auth/getAssigned', async (_, thunkAPI) => {
-  
+
     try {
-    
-    return await assignedUserService.getAssignedUser()
+    const company_id = user.results.company_id
+    const token = user.results.token
+    return await assignedUserService.getAssignedUser(company_id, token)
   
   } catch (error) {
 

@@ -1,8 +1,10 @@
 import authService from './authService'
+
 import {
   createSlice,
   createAsyncThunk
 } from "@reduxjs/toolkit";
+import { useDispatch } from 'react-redux';
 
 // Get user from localStorage
 const user = JSON.parse(localStorage.getItem('user'))
@@ -23,13 +25,15 @@ const userData = {
 
 // Login user
 export const login = createAsyncThunk('auth/login', async (_, thunkAPI) => {
+  
+  
   try {
     
     const { data } =  await authService.login(userData)
 
     return data
     
-  
+
   } catch (error) {
 
     const message =
@@ -49,8 +53,8 @@ export const authSlice = createSlice({
   reducers: {
     reset: (state) => {
       state.isLoading = false
-      state.isError = false
-      state.isError = false
+      // state.isError = false
+      // state.isError = false
       state.message = ''
     }
   },

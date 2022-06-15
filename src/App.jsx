@@ -10,18 +10,19 @@ function App() {
   
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    if (isError) {
-      toast.error(message);
-    }
+  // React.useEffect(() => {
+  //   if (isError) {
+  //     toast.error(message);
+  //   }
 
-    dispatch(reset());
-  }, [isError]);
+  //   dispatch(reset());
+  // }, [isError]);
 
   console.log(user);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     dispatch(login())
+
   }
 
 
@@ -30,7 +31,9 @@ function App() {
     <>
       {user ? (
         <>
-          <TaskList />
+          <ul className="list">
+            <TaskList />
+          </ul>
           <TaskBar />
         </>
       ) : (
